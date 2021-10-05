@@ -10,7 +10,7 @@
   <% current_user.room.each do |room| %>
     <div class="room">
       <div class="room-name">
-        <a href="#"><%= room.name %></a>
+        <%= link_to room.name, messages_path %>
       </div>
     </div>
   <% end %>
