@@ -1,8 +1,9 @@
 class MessagesController < ApplicationController
   def index
     @room = Room.find(params[:room_id])
-    # @message = Message.where(room_id: params[:room_id]).order("created_at", "DESC").includes(:user)
     @message = Message.new
+    # @messages = Message.where(room_id: params[:room_id]).order(created_at: :DESC).includes(:user)
+    @messages = @room.messages.includes(:user)
   end
   def create
     @room = Room.find(params[:room_id])
@@ -10,6 +11,7 @@ class MessagesController < ApplicationController
     if @message.save
       redirect_to room_messages_path(@room)
     else
+      @messages = @room.messages.includes(:user)
       render :index
     end
   end
