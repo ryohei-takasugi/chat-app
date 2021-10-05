@@ -4,11 +4,15 @@ class RoomsController < ApplicationController
   end
 
   def create
-    Room.create(room_params)
+    if Room.create(room_params)
+      redirect_to root_path
+    else
+      render :new
+    end
   end
 
   private
   def room_params
-    params.require(:room).permit(:name)
+    params.require(:room).permit(:name, user_ids: [])
   end
 end
